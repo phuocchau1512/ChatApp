@@ -75,7 +75,6 @@ class HomeFragment : Fragment(), OnUserClickListener {
             Glide.with(requireContext()).load(it).into(binding.tlImage)
         }
 
-        Toast.makeText(context,Utils.getUiLoggedIn(),Toast.LENGTH_SHORT).show()
 
     }
 

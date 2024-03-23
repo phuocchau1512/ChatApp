@@ -76,6 +76,10 @@ class SignUpActivity : AppCompatActivity() {
                             .addOnSuccessListener {
                                 signUpPd.dismiss()
                                 Toast.makeText(this, "Sign Up Success", Toast.LENGTH_SHORT).show()
+                                if ( auth.currentUser != null ) {
+                                    startActivity(Intent(this,MainActivity::class.java))
+                                    finish()
+                                }
                             }
                             .addOnFailureListener { e ->
                                 signUpPd.dismiss()
