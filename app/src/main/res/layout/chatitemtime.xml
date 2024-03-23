@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp">
+
+        <TextView
+            android:id="@+id/timeView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="14:00"
+            android:layout_weight="1"
+            android:fontFamily="@font/nunito"
+            android:textStyle="italic"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+
+</layout>

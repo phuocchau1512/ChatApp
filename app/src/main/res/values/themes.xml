@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.ChatApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="ErrorAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#E60E0E</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="Theme.ChatApp" parent="Base.Theme.ChatApp" />
+</resources>
