@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -15,10 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.chatapp.R
 import com.example.chatapp.SignInActivity
-import com.example.chatapp.Utils
-import com.example.chatapp.adapter.OnRecentChatClicked
 import com.example.chatapp.adapter.OnUserClickListener
-import com.example.chatapp.adapter.RecentChatAdapter
 import com.example.chatapp.adapter.UserAdapter
 import com.example.chatapp.databinding.FragmentHomeBinding
 import com.example.chatapp.modal.RecentChats
