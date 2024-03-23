@@ -15,7 +15,6 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class RecentChatAdapter: RecyclerView.Adapter<RecentChatHolder>() {
 
-    private  var listOfChat = listOf<RecentChats>()
     private var listener: OnRecentChatClicked? = null
     private var recentModel = RecentChats()
 
@@ -70,11 +69,11 @@ class RecentChatHolder(itemView: View): ViewHolder(itemView) {
 
 class RecentChatDiffCallBack: DiffUtil.ItemCallback<RecentChats>() {
     override fun areItemsTheSame(oldItem: RecentChats, newItem: RecentChats): Boolean {
-        TODO("Not yet implemented")
+       return oldItem.friendId == newItem.friendId
     }
 
     override fun areContentsTheSame(oldItem: RecentChats, newItem: RecentChats): Boolean {
-        TODO("Not yet implemented")
+        return true
     }
 
 }

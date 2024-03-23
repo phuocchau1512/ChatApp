@@ -15,12 +15,15 @@ class ChatListRepo {
 
         val mainChatList = MutableLiveData<List<RecentChats>>()
 
-        firestore.collection("Conversation${Utils.getUiLoggedIn()}").orderBy("time", Query.Direction.DESCENDING)
+        firestore.collection("Conversation").document(Utils.getUiLoggedIn())
+            .collection("LastMess")
+            .orderBy("time", Query.Direction.DESCENDING)
             .addSnapshotListener{ value, error ->
 
                 if ( error !=  null ){
                     return@addSnapshotListener
                 }
+
                 val chatList = mutableListOf<RecentChats>()
                 value?.forEach{document ->
                     val recentModel = document.toObject(RecentChats::class.java)
