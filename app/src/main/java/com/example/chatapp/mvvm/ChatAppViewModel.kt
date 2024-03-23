@@ -20,6 +20,7 @@ class ChatAppViewModel : ViewModel() {
 
     private val usersRepo = UsersRepo()
     private val messageRepo = MessageRepo()
+    private val chatListRepo = ChatListRepo()
 
 
     init{
@@ -58,10 +59,12 @@ class ChatAppViewModel : ViewModel() {
         val uniqueId = listOf( Utils.getUiLoggedIn(), friend.userid.toString() ).sorted()
         uniqueId.joinToString(separator = "")
 
+        val mess = message.value!!
+
         val chatHashMap = hashMapOf<String,Any>(
             "sender" to Utils.getUiLoggedIn(),
             "receiver" to friend.userid!!,
-            "content" to message.value!!,
+            "content" to mess,
             "time" to Utils.getCurrentTime()
         )
 
@@ -75,22 +78,21 @@ class ChatAppViewModel : ViewModel() {
             "name" to friend.username.toString(),
             "friendImage" to friend.imageUrl.toString(),
             "sender" to Utils.getUiLoggedIn(),
-            "message" to message.value!!,
+            "message" to mess,
             "person" to "you"
         )
 
-        fireStore.collection("Conversation${Utils.getUiLoggedIn()}").document(friend.userid).set(conversationHashMap)
+        fireStore.collection("Conversation").document(Utils.getUiLoggedIn())
+            .collection("LastMess").document(friend.userid)
+            .set(conversationHashMap)
     }
 
     fun getMessages( friendId: Users):LiveData<List<Messages>> {
         return messageRepo.getMessage(friendId)
     }
 
-
-
-
-
-
-
+    fun getRecentChat(): LiveData<List<RecentChats>> {
+        return chatListRepo.getAllChatList()
+    }
 
 }

@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.example.chatapp.R
 import com.example.chatapp.SignInActivity
 import com.example.chatapp.adapter.OnUserClickListener
+import com.example.chatapp.adapter.RecentChatAdapter
 import com.example.chatapp.adapter.UserAdapter
 import com.example.chatapp.databinding.FragmentHomeBinding
 import com.example.chatapp.modal.RecentChats
@@ -29,6 +30,7 @@ class HomeFragment : Fragment(), OnUserClickListener {
     private lateinit var userViewModel: ChatAppViewModel
     private lateinit var binding: FragmentHomeBinding
     private lateinit var auth:FirebaseAuth
+    private lateinit var recentChatAdapter: RecentChatAdapter
 
 
 
@@ -49,10 +51,9 @@ class HomeFragment : Fragment(), OnUserClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         userViewModel = ViewModelProvider(this)[ChatAppViewModel::class.java]
+
         userAdapter = UserAdapter()
-
         binding.rvUsers.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
-
 
         userViewModel.getUsers().observe( viewLifecycleOwner) {
             userAdapter.setUserList(it)
@@ -71,6 +72,12 @@ class HomeFragment : Fragment(), OnUserClickListener {
             Glide.with(requireContext()).load(it).into(binding.tlImage)
         }
 
+        recentChatAdapter = RecentChatAdapter()
+        binding.rvRecentChats.layoutManager = LinearLayoutManager(context)
+        userViewModel.getRecentChat().observe(viewLifecycleOwner){
+            recentChatAdapter.setRecentChatList(it)
+            binding.rvRecentChats.adapter = recentChatAdapter
+        }
 
     }
 
