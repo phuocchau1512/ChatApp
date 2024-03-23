@@ -6,6 +6,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.chatapp.databinding.ActivitySignUpBinding
@@ -55,33 +56,43 @@ class SignUpActivity : AppCompatActivity() {
         signUpPd.show()
         signUpPd.setMessage("Signing Up")
 
-        auth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener{
+        auth.createUserWithEmailAndPassword(email, pass)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    val userId = user?.uid
+                    val defaultImageUrl = "https://www.pngarts.com/files/6/User-Avatar-in-Suit-PNG.png"
 
-            if ( it.isSuccessful ) {
-                val user = auth.currentUser
+                    if (userId != null) {
+                        val userMap = hashMapOf(
+                            "userid" to userId,
+                            "username" to name,
+                            "status" to "default",
+                            "imageUrl" to defaultImageUrl
+                        )
 
-                if (user != null) {
-                    val hashMap = hashMapOf(
-                        "userid" to user.uid,
-                        "username" to name,
-                        "status" to "default",
-                        "imageUrl" to "https://www.pngarts.com/files/6/User-Avatar-in-Suit-PNG.png"
-                    )
-
-                    fireStore.collection("User")
-                        .document(user.uid)
-                        .set(hashMap)
-
+                        fireStore.collection("User").document(userId)
+                            .set(userMap)
+                            .addOnSuccessListener {
+                                signUpPd.dismiss()
+                                Toast.makeText(this, "Sign Up Success", Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener { e ->
+                                signUpPd.dismiss()
+                                Toast.makeText(this, "Sign Up Failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                                Log.e("d", {e.message}.toString())
+                            }
+                    } else {
+                        signUpPd.dismiss()
+                        Toast.makeText(this, "User ID is null", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
                     signUpPd.dismiss()
-                    Toast.makeText(this, "Sign Up Success", Toast.LENGTH_SHORT).show()
-
+                    Toast.makeText(this, "Sign Up Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    Log.e("d", {task.exception?.message}.toString())
                 }
             }
-            else {
-                signUpPd.dismiss()
-                Toast.makeText(this,"Sign Up Failed",Toast.LENGTH_SHORT).show()
-            }
-        }
+
     }
 
     private fun validateInput(name: String, email: String, pass: String): Boolean {
