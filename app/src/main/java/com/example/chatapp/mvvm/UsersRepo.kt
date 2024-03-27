@@ -23,7 +23,6 @@ class UsersRepo {
             val usersList = mutableListOf<Users>()
             snapshot?.documents?.forEach{ documentSnapshot ->
                 val user = documentSnapshot.toObject(Users::class.java)
-
                 if ( user!!.userid != Utils.getUiLoggedIn() ){
                     user.let{
                         usersList.add(it)
@@ -36,5 +35,24 @@ class UsersRepo {
 
         return users
     }
+
+    fun getUserFromId(userId:String):LiveData<Users>{
+        val user = MutableLiveData<Users>()
+
+        val userRef = firestore.collection("User").document(userId)
+        userRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val currentUser = document.toObject(Users::class.java)
+                    user.value = currentUser!!
+                }
+            }
+            .addOnFailureListener { exception ->
+                // Xử lý lỗi nếu có
+                println("Error getting document: $exception")
+            }
+        return user
+    }
+
 
 }

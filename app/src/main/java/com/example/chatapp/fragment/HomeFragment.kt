@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -73,6 +74,7 @@ class HomeFragment : Fragment(), OnUserClickListener {
         }
 
         recentChatAdapter = RecentChatAdapter()
+        recentChatAdapter.setOnRecentChatListener(this)
         binding.rvRecentChats.layoutManager = LinearLayoutManager(context)
         userViewModel.getRecentChat().observe(viewLifecycleOwner){
             recentChatAdapter.setRecentChatList(it)
@@ -89,7 +91,9 @@ class HomeFragment : Fragment(), OnUserClickListener {
     }
 
     override fun getOnRecentChatClick(position: Int, recentChats: MutableList<RecentChats>) {
-        TODO("Not yet implemented")
+        val recentChat = recentChats[position]
+        val action = HomeFragmentDirections.actionHomeFragmentToChatFromHomeFragment(recentChat)
+        view?.findNavController()?.navigate(action)
     }
 
 

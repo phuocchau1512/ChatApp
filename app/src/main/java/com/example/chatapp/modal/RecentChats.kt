@@ -11,8 +11,12 @@ class RecentChats(
     val sender: String? ="",
     val message: String? ="",
     val person: String? ="",
+    val status: String? =""
 ):Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -22,9 +26,13 @@ class RecentChats(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(friendId)
+        parcel.writeString(name)
+        parcel.writeString(time)
+        parcel.writeString(friendImage)
         parcel.writeString(sender)
         parcel.writeString(message)
         parcel.writeString(person)
+        parcel.writeString(status)
     }
 
     override fun describeContents(): Int {

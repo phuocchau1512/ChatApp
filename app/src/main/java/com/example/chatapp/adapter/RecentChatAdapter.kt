@@ -73,7 +73,7 @@ class RecentChatDiffCallBack: DiffUtil.ItemCallback<RecentChats>() {
     }
 
     override fun areContentsTheSame(oldItem: RecentChats, newItem: RecentChats): Boolean {
-        return true
+        return false
     }
 
 }

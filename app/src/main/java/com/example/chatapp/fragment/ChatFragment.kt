@@ -65,6 +65,7 @@ class ChatFragment : Fragment() {
             navController.navigate(action, navOptions)
         }
 
+
         viewModel.message.observe(viewLifecycleOwner){
             if ( it != "" ) binding.sendBtn.setImageResource(R.drawable.baseline_send_24)
             else binding.sendBtn.setImageResource(R.drawable.baseline_send_25)

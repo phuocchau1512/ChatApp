@@ -139,6 +139,7 @@
             android:focusable="true"
             android:minWidth="48dp"
             android:src="@drawable/baseline_send_25" />
+
     </LinearLayout>
 
 

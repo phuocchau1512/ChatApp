@@ -10,6 +10,7 @@ class Utils {
     companion object{
         private val auth = FirebaseAuth.getInstance()
         private var userid: String= ""
+        private var userName: String =""
 
         fun getUiLoggedIn():String{
             if ( auth.currentUser != null ){
@@ -17,6 +18,7 @@ class Utils {
             }
             return userid
         }
+
 
         fun getCurrentTime():String {
             val currentTime = Calendar.getInstance().time
