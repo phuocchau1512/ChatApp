@@ -1,9 +1,11 @@
 package com.example.chatapp.mvvm
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.chatapp.MyApplication
 import com.example.chatapp.Utils
 import com.example.chatapp.modal.Messages
 import com.example.chatapp.modal.RecentChats
@@ -16,6 +18,7 @@ class ChatAppViewModel : ViewModel() {
     val name = MutableLiveData<String>()
     val imageUrl = MutableLiveData<String>()
     val message =  MutableLiveData<String>().apply { value="" }
+
     private val fireStore = FirebaseFirestore.getInstance()
 
     private val usersRepo = UsersRepo()
@@ -25,6 +28,7 @@ class ChatAppViewModel : ViewModel() {
 
     init{
         getCurrentUser()
+        getRecentChat()
     }
 
     fun getUsers(): LiveData<List<Users>>{
@@ -130,7 +134,21 @@ class ChatAppViewModel : ViewModel() {
 
         fireStore.collection("Conversation").document(recentChats.friendId)
             .collection("LastMess").document(Utils.getUiLoggedIn())
-            .update("message",mess,"time",Utils.getCurrentTime(),"person",name.value!!)
+            .update("message",mess,"time",Utils.getCurrentTime(),
+                "person",name.value!!,"friendImage" to recentChats.friendImage.toString())
+    }
+
+    fun updateProfile() = viewModelScope.launch(Dispatchers.IO){
+        val context = MyApplication.instance.applicationContext
+
+        val hashMapUser = hashMapOf<String,Any>("username" to name.value!!,"imageUrl" to imageUrl.value!!)
+
+        fireStore.collection("User").document(Utils.getUiLoggedIn())
+            .update(hashMapUser).addOnCompleteListener {task ->
+                if ( task.isSuccessful ){
+                    Toast.makeText(context,"Update successful",Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
     fun getMessages( friendId: Users):LiveData<List<Messages>> {
@@ -145,8 +163,6 @@ class ChatAppViewModel : ViewModel() {
         return chatListRepo.getAllChatList()
     }
 
-    fun getUserFromId(userId:String) : LiveData<Users> {
-        return usersRepo.getUserFromId(userId)
-    }
+
 
 }

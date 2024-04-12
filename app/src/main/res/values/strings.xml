@@ -13,4 +13,14 @@
     <string name="enter_message">Enter Message</string>
     <string name="online">Online</string>
     <string name="user_name">User name</string>
+    <string name="update_your_profile">Update Your Profile</string>
+    <string name="update">Update</string>
+    <string name="name">Name</string>
+    <string name="allow">Allow</string>
+    <string name="permission_read_storage">Permission to read memory</string>
+    <string name="permission_granted">permission_granted</string>
+    <string name="permission_camera_required">Camera permissions are required to use the feature</string>
+    <string name="permission_photo_image_required">Photo and Gallery permissions are required to use the feature</string>
+    <string name="chat">Chat</string>
+    <string name="friend_request">Friend request</string>
 </resources>

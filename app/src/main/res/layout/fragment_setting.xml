@@ -25,8 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/settingChatContainer"
-
-        xmlns:tools="http://schemas.android.com/tools">
+        >
 
 
 
@@ -51,8 +50,8 @@
 
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_marginTop="30dp"
             android:id="@+id/settingUpdateImage"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="15dp"
             android:layout_width="160dp"
             android:layout_height="160dp"
@@ -72,9 +71,9 @@
             android:layout_marginBottom="40dp"
             android:fontFamily="@font/nunito_bold"
             android:gravity="start"
-            android:text="Update Your Profile"
+            android:text="@string/update_your_profile"
             android:textSize="25sp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +86,8 @@
 
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:background="@android:color/transparent"
-            app:boxBackgroundColor="@android:color/transparent">
+            app:boxBackgroundColor="@android:color/transparent"
+            android:maxWidth="400dp">
 
             <EditText
                 android:id="@+id/settingUpdateName"
@@ -95,14 +95,15 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:text="@={viewModel.name}"
-                android:hint="Name"
+                android:hint="@string/name"
                 android:fontFamily="@font/nunito_bold"
                 android:importantForAutofill="no"
                 android:inputType="textCapWords"
                 android:maxLength="25"
                 android:paddingStart="10dp"
                 android:paddingEnd="0dp"
-                tools:background="@android:color/transparent" />
+                tools:background="@android:color/transparent"
+                android:maxWidth="400dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -113,7 +114,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:backgroundTint="#191970"
-            android:text="Update"
+            android:text="@string/update"
             android:fontFamily="@font/nunito_bold"
             android:layout_gravity="center"
             android:textSize="16sp"

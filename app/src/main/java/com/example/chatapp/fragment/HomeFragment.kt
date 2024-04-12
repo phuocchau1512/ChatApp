@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -53,6 +52,8 @@ class HomeFragment : Fragment(), OnUserClickListener {
 
         userViewModel = ViewModelProvider(this)[ChatAppViewModel::class.java]
 
+
+        // hien thi cac user trong list
         userAdapter = UserAdapter()
         binding.rvUsers.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
 
@@ -63,6 +64,7 @@ class HomeFragment : Fragment(), OnUserClickListener {
 
         userAdapter.setOnUserClickListener(this)
 
+        // cai dat de log out
         binding.logOut.setOnClickListener {
             auth.signOut()
             startActivity(Intent(activity,SignInActivity::class.java))
@@ -73,6 +75,7 @@ class HomeFragment : Fragment(), OnUserClickListener {
             Glide.with(requireContext()).load(it).into(binding.tlImage)
         }
 
+        // hien thi cac recent chat
         recentChatAdapter = RecentChatAdapter()
         recentChatAdapter.setOnRecentChatListener(this)
         binding.rvRecentChats.layoutManager = LinearLayoutManager(context)
@@ -81,6 +84,9 @@ class HomeFragment : Fragment(), OnUserClickListener {
             binding.rvRecentChats.adapter = recentChatAdapter
         }
 
+        binding.tlImage.setOnClickListener{
+            view.findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
+        }
     }
 
     override fun onUserSelected(position: Int, users: Users) {
