@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id ="@+id/chatMenu"
+        android:title="@string/chat"
+        android:icon="@drawable/baseline_chat_bubble_24"
+        app:showAsAction="ifRoom"
+        android:enabled="true"/>
+    <item
+        android:id="@+id/friendMenu"
+        android:title="@string/friend_request"
+        android:icon="@drawable/baseline_person_add_24"
+        app:showAsAction="ifRoom"
+        android:enabled="true"/>
+</menu>
